@@ -2,7 +2,7 @@
 """
 Created on Fri Nov 13 10:20:20 2015
 @author: Konstantinos Tsekouras
-Copyright (C) 2015 Konstantinos Tsekouras 
+Copyright (C) 2015 Konstantinos Tsekouras
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
@@ -17,7 +17,7 @@ import math
 from KalafutPUB import KalafutC
 
 
-#This might just as well have been a function. 
+#This might just as well have been a function.
 #It finds an estimate of λbar which we need to calculate an array of local λeffectives in the next class
 
 class AssistSlice(object):
@@ -27,7 +27,7 @@ class AssistSlice(object):
         self.stats = np.zeros(4)
         self.szero = np.zeros(1)
         xignal = dataP[a0-100:]
-        Try1 = KalafutC(xignal)                                                   
+        Try1 = KalafutC(xignal)
         self.stats = Try1.stats
         self.szero = Try1.tzero
 
@@ -40,10 +40,10 @@ class Manuel(object):
         b0 = input('Enter start of single fluorophore calculation interval:\n')
         b1 = input('Enter end of single fluorophore calculation interval:\n')
         self.stats = np.zeros(4)
-        self.stats[0] = np.mean(dataP[a0:a1],dtype=np.float64)  
+        self.stats[0] = np.mean(dataP[a0:a1],dtype=np.float64)
         self.stats[1] = np.var(dataP[a0:a1],dtype=np.float64)
         self.stats[2] = np.mean(dataP[b0:b1],dtype=np.float64)
-        self.stats[3] = np.var(dataP[b0:b1],dtype=np.float64)        
+        self.stats[3] = np.var(dataP[b0:b1],dtype=np.float64)
 
 
 class LbarFind(object):                                                       #Gives a crude estimate of Lbar
@@ -56,15 +56,15 @@ class LbarFind(object):                                                       #G
         if fluoMIN==0:
             fluoMIN += 1                                                      #Make this into 1 just to avoid math issues
         if nee<=fluoMIN and nee>0:                                            #If your max fluorophore estimate is less than your starting one [SHOULD NOT HAPPEN!]
-            self.Lbar = 10.0/(nee*(len(dataP)-tzeroM))                         
+            self.Lbar = 10.0/(nee*(len(dataP)-tzeroM))
         elif nee<=fluoMIN and nee<=0:                                         #If your max fluorophore estimate is negative [SHOULD DEFINITELY NOT HAPPEN!]
-            self.Lbar = 10.0/(fluoMIN*(len(dataP)-tzeroM))                    
+            self.Lbar = 10.0/(fluoMIN*(len(dataP)-tzeroM))
         else:                                                                 #Normal case
             lin = np.arange(float(fluoMIN),float(nee))
             lin = lin**(-1.0)
             self.Lbar = 10.0/(np.sum(lin)*(len(dataP)-tzeroM))
 
-#Here we calculate an array of local crude estimates of λeffective, the Poisson effective photobleach rate that is time-dependent 
+#Here we calculate an array of local crude estimates of λeffective, the Poisson effective photobleach rate that is time-dependent
 class PriorSlicer(object):
     def __init__(self, dataP, lbarP, tzeroM, fluoMIN):                        #Give the data set, the lbar, the location of the bleach-to-background step and how many fluorophores are still lit at data set start (remember the data set is inversed)
         index_length = len(dataP) - tzeroM
@@ -74,7 +74,7 @@ class PriorSlicer(object):
         while j_sum<index_length:
             index = math.ceil(1.0/(j*lbarP)) + j_sum
             if j==fluoMIN+1 and index>index_length:
-                print "wrong lbar"
+                print ("wrong lbar")
                 raise ValueError
             j_sum = index
             j += 1
@@ -90,4 +90,3 @@ class PriorSlicer(object):
             if i in self.pslice:
                 k += 1
             self.leffarray[i] = k*lbarP
-                
