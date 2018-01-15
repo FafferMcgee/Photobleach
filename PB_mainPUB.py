@@ -45,9 +45,9 @@ interruptflag = 0                                                             #M
 fluorupdateflag = 3                                                           #MANUALLY PICK Determines whether you should update your fluorophore numbers from Step 2 (2) or Step 3 (3)
 priorsliceflag = 0                                                            #MANUALLY PICK Set to 0 if you want to have an estimate of λeffective from data or 1 if you have some idea of lbar and the last step location
 KVflag = 0                                                                    #MANUALLY PICK Set to something other than 0 to give a slice of your data set around the last(in time) step to Kalafut
-zignal = np.loadtxt("wut2.txt", unpack=True)                               #Import your data set
+zignal = np.loadtxt("ya.txt", unpack=True)                               #Import your data set
 points = len(zignal)                                                          #Number of data points
-windz = 80                                                                   #MANUALLY SET data set window size
+windz = 150                                                                  #MANUALLY SET data set window size
 if points%windz==0:
     many_d = points//windz                                                    #Number of windows in data set
 else:

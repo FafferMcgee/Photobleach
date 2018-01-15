@@ -23,10 +23,11 @@ from KalafutPUB import KalafutC
 class AssistSlice(object):
     def __init__(self, dataP):
         a0 = input('Enter approximate location of last step (1 to 0 fluorophores):\n')
-        print('Reminder: this will take data from 100 points before the approximate step location to the end to find statistics!')
+        a0 = int(a0)
+        print('Reminder: this will take data from 25 (formerly 100) points before the approximate step location to the end to find statistics!')
         self.stats = np.zeros(4)
         self.szero = np.zeros(1)
-        xignal = dataP[a0-100:]
+        xignal = dataP[a0-25:]
         Try1 = KalafutC(xignal)
         self.stats = Try1.stats
         self.szero = Try1.tzero
