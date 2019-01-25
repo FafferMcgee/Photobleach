@@ -100,7 +100,7 @@ class mSICer(object):
         old_locs = best_locs2
         new_locs = old_locs
         old_fluor = self.fluorOUT
-        while limit<9:                                                        #MANUALLY SET maximum number of extra steps to consider beyond what was found above
+        while limit<3:                                                        #MANUALLY SET maximum number of extra steps to consider beyond what was found above
             for i in range(0,len(best_locs2),1):                              #Check various possible m's at each non-step location
                 ziplocs = np.zeros((6,len(best_locs2)))
                 if best_locs2[i]==0:

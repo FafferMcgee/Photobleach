@@ -30,7 +30,7 @@ class KalafutC(object):
                 output.append(x)
         return output 
     def KalafutD(self, signal):
-        threshold = 0.9   
+        threshold = 0.9 # default was 0.9
         tot = len(signal) - 1                                                    
         jf=[0,tot]
         jrhtest=1                                                             
@@ -42,7 +42,7 @@ class KalafutC(object):
             for j2 in range(1,len(signal)-2):
                 if j2 not in jf and j2 not in jignore:               
                     jtest = sorted(list(set(jf + [j2])))
-                    meannn=[None]*(len(jtest)-1)
+                    meannn = [None]*(len(jtest)-1)
                     meannn = [sum(signal[jtest[hate]:jtest[hate+1]])/(jtest[hate+1]-jtest[hate]) for hate in range(0,len(jtest)-1)]
                     sigs = max(0, np.sum([math.fsum(pow(signal[jtest[hate]:jtest[hate+1]]-meannn[hate],2))/tot for hate in range(0,len(jtest)-1)]))
                     if sigs==0:
@@ -77,7 +77,7 @@ class KalafutC(object):
 
     def findstats(self, data2, loc):                                         
         MIN = 1e-10 
-        stat_window = 25                                                      #MANUALLY PICK a window size to calculate the mean and variance of the single fluorophore                                   
+        stat_window = 75 #Changed from 25                                                      #MANUALLY PICK a window size to calculate the mean and variance of the single fluorophore
         stat_val = np.zeros(4)
         point = loc
         if point+stat_window<len(data2):
